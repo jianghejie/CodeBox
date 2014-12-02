@@ -29,7 +29,7 @@
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:textSize="18dip"
-				    android:text="jcode是一个搜集优秀android开源代码并提供演示的安卓客户端，源码的搜集来自于网站《泡在网上的日子》，欢迎访问。"		    
+				    android:text="CodeBox是一个搜集优秀android开源代码并提供演示的安卓客户端，源码的搜集来自于网站《泡在网上的日子》，欢迎访问。"		    
 				/> 		
 			</LinearLayout>
 			
