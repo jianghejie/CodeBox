@@ -25,11 +25,11 @@ dynamic-load-apk-Apk动态加载框架https://github.com/singwhatiwanna/dynamic-
 ------- 
 下拉刷新
 ######
-下拉刷新改写自xListView
+改写自xListView的PullToRefreshListView   https://github.com/jianghejie/PullToRefreshListView 
 图片的异步加载
 ######
-异步加载改写自LazyList https://github.com/thest1/LazyList
+异步加载改写自LazyList  https://github.com/thest1/LazyList
 
-以上两个库都集成到了项目中，不必再添加依赖。
+其中第一个需要你自己下载并添加依赖，第二个库已经集成到了项目中
 
 目前该项目的功能还很单一，后续会增加更多的功能。
