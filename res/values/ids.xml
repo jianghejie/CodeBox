@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="common_title_bar">false</item>
+    <item type="id" name="titlebar_left">false</item>
+    <item type="id" name="titlebar_title">false</item>
+    <item type="id" name="titlebar_right2">false</item>
+    <item type="id" name="titlebar_right_container">false</item>
+    <item type="id" name="titlebar_right_1">false</item>
+    <item type="id" name="titlebar_right_1_iv">false</item>
+    <item type="id" name="titlebar_right_1_tx">false</item>
+    
+    <item type="id" name="arrow_up">false</item>
+    <item type="id" name="arrow_down">false</item>    
+    <item type="id" name="header_bottom">false</item>    
+    <item type="id" name="titlebar_title_tab">false</item>        
+ </resources>
+ 

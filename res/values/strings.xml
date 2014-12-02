@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CodeBox</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    
+    <string name="multi_select">多选</string>
+    <string name="show_in_two_columns">两列显示</string>
+    <string name="show_in_three_columns">三列显示</string>
+    <string name="show_in_four_columns">四列显示</string>
+    <string name="show_in_five_columns">五列显示</string>
+    <string name="show_in_six_columns">六列显示</string>
+    <string name="show_in_seven_columns">七列显示</string>    
+    <string name="show_in_eight_columns">八列显示</string>  
+    <string name="show_in_detail">详细列表</string>
+    <string name="theme_color_pick">主题</string>
+    <string name="action_number_of_Column">列数</string>    
+ 
+    <string name="choose_theme">选择主题</string>     
+    <string name="privateplace">私密相册</string>   
+
+    
+    <string name="select_item">已选择:</string>
+    <string name="action_select_all">全选</string>
+    <string name="action_deselect_all">全不选</string>
+</resources>

@@ -1,0 +1,16 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+     >
+	<ListView  
+	    android:id="@+id/drawer_list"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:choiceMode="singleChoice"
+	    android:divider="@drawable/drawer_item_divider"
+	    android:dividerHeight="2dp"
+		android:background="#16171b"
+	    tools:context="com.jcodecraeer.jcode.fragment.NavigationDrawerFragment" />
+</LinearLayout>

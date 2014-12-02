@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+    <color name="title_unwatched">#373737</color>
+    <color name="title_watched">#909090</color>
+    <color name="textColor">#909090</color>
+    <color name="backgroundColor">#E8E8E0</color>
+    <color name="backgroundColorPress">#DBDBD3</color>
+    <color name="videoListItemContentColor">#909090</color>
+    <color name="indicatorBlue">#4c9aec</color>
+    <color name="loadBackground">#4c9aec</color>
+    <color name="play_time">#ffffff</color>
+    <color name="setting_item_line">#9FA19F</color>
+    <color name="divide_line">#E4E4E4</color>
+    <color name="holo_blue">#E4E4E4</color>
+    <color name="comment_text_color">#333333</color>
+    <color name="white">#ffffff</color>
+    <color name="load_more_normal_color">@color/white</color>
+    <color name="load_more_press_color">@color/holo_blue</color>
+	<!-- Drawer -->
+	<color name="drawer_background">#242730</color>
+	<color name="drawer_selected_background">#0d0e12</color>
+	<color name="drawer_text">#ffffff</color>
+	<color name="drawer_divider">#0d0e12</color>
+    <!-- ActionBar -->
+    <color name="actionbar_background">#272727</color>
+    
+    <!-- the background color used for unread conversation -->
+    <color name="unread_bgcolor">#ffffffff</color>
+    <color name="read_bgcolor">#ffeeeeee</color>
+    <color name="app_background">#f7f7f7</color>  
+</resources>
