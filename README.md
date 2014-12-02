@@ -33,7 +33,12 @@ https://github.com/jianghejie/PullToRefreshListView
 异步加载改写自LazyList  
 https://github.com/thest1/LazyList
 
-其中第一个需要你自己下载并添加依赖，第二个库已经集成到了项目中
+######图标资源
+IonIconView 
+https://github.com/MarsVard/IonIconView
+这个项目集中了android 和ios中常见的图标，基本解决了我对美工的需求
+
+其中第一、第三个个需要你自己下载并添加依赖，第二个库已经集成到了项目中
 
 目前该项目的功能还很单一，后续会增加更多的功能。
 
