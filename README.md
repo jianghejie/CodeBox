@@ -1,6 +1,6 @@
 CodeBox android
 =======
-
+###三星手机目前还有点问题
 an open source project demo Demonstration
 
 ![](https://github.com/jianghejie/CodeBox/blob/master/screenshots/device-2014-12-02-152750.png)  
