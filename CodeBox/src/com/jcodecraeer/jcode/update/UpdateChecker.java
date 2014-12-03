@@ -52,9 +52,9 @@ public class UpdateChecker{
 		// instantiate it within the onCreate method
 		mProgressDialog = new ProgressDialog(context);
 		mProgressDialog.setMessage("正在下载");
-		mProgressDialog.setIndeterminate(true);
+		mProgressDialog.setIndeterminate(false);
 		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		mProgressDialog.setCancelable(true);
+		mProgressDialog.setCancelable(false);
 		mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 		    @Override
 		    public void onCancel(DialogInterface dialog) {

@@ -104,8 +104,8 @@ public class CodeActivity extends BaseActivity {
 		
 		// instantiate it within the onCreate method
 		mProgressDialog = new ProgressDialog(this);
-		mProgressDialog.setMessage("A message");
-		mProgressDialog.setIndeterminate(true);
+		mProgressDialog.setMessage("正在下载");
+		mProgressDialog.setIndeterminate(false);
 		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		mProgressDialog.setCancelable(true);
 		mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -185,6 +185,7 @@ public class CodeActivity extends BaseActivity {
                 int progress = resultData.getInt("progress");
                 mProgressDialog.setProgress(progress);
                 if (progress == 100) {
+                	Log.i("progress","progress = 100");
                 	loadPluginToHost();
                     mProgressDialog.dismiss();
                 }

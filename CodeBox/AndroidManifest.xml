@@ -38,9 +38,11 @@
         android:icon="@drawable/ic_launcher"
         android:name="com.jcodecraeer.jcode.AppContext"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"        
+         >
         <activity
             android:name="com.jcodecraeer.jcode.MainActivity"
+            android:theme="@style/AppTheme"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,16 +50,19 @@
             </intent-filter>
         </activity>	 
         <activity
-            android:name="com.jcodecraeer.jcode.CodeActivity" >
+            android:name="com.jcodecraeer.jcode.CodeActivity"
+            android:theme="@style/AppTheme"
+             >
         </activity>  
         <activity
-            android:name="com.jcodecraeer.jcode.AboutActivity" >
+            android:name="com.jcodecraeer.jcode.AboutActivity"
+            android:theme="@style/AppTheme"
+             >
         </activity>          
         
         <activity
             android:name="com.ryg.dynamicload.DLProxyActivity"
             android:label="@string/app_name" 
-            android:theme="@android:style/Theme.Light"
             >
             <intent-filter>
                 <action android:name="com.ryg.dynamicload.proxy.activity.VIEW" />
@@ -67,7 +72,6 @@
         </activity>
         <activity
             android:name="com.ryg.dynamicload.DLProxyFragmentActivity"
-            android:theme="@android:style/Theme.Light"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="com.ryg.dynamicload.proxy.fragmentactivity.VIEW" />

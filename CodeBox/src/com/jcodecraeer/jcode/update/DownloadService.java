@@ -72,14 +72,17 @@ public class DownloadService extends IntentService {
             // download the file
             InputStream input = new BufferedInputStream(connection.getInputStream());
             OutputStream output = new FileOutputStream(fileDestination);
-            byte data[] = new byte[100];
+            byte data[] = new byte[1024];
             long total = 0;
             int count;
             while ((count = input.read(data)) != -1) {
                 total += count;
                 // publishing the progress....
                 Bundle resultData = new Bundle();
-                resultData.putInt("progress" ,(int) (total * 100 / fileLength));
+                int progress = (int) (total * 100 / fileLength);
+                if(progress == 100)
+                	progress = 99;
+                resultData.putInt("progress", progress);
                 receiver.send(UPDATE_PROGRESS, resultData);
                 output.write(data, 0, count);
             }
@@ -90,6 +93,7 @@ public class DownloadService extends IntentService {
             e.printStackTrace();
         }
         Bundle resultData = new Bundle();
+  
         resultData.putInt("progress" ,100);
         receiver.send(UPDATE_PROGRESS, resultData);
     }
