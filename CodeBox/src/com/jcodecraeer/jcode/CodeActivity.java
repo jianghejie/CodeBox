@@ -127,28 +127,33 @@ public class CodeActivity extends BaseActivity {
   
 	public void downLoadPlugin() {
 		String pluginUrl = mCode.getPluginUrl();
-		String dir = getExternalFilesDir( "plugin").getAbsolutePath();
-		File folder = Environment.getExternalStoragePublicDirectory(dir);
-		if(folder.exists() && folder.isDirectory()) 
-		{
-			  
-		}else {
-			folder.mkdirs();
-		}
-		String filename = pluginUrl.substring(pluginUrl.lastIndexOf("/"),pluginUrl.length());
-		Log.i(TAG,"filename = " + filename);
-		String destinationFilePath =  dir + "/" + filename;	
-		File file = new File(destinationFilePath);
-		if(file.exists() && file.isFile()){
-			loadPluginToHost();
-			return;
-		}
-		mProgressDialog.show();
-		Intent intent = new Intent(this, DownloadService.class);
-		intent.putExtra("url", pluginUrl);
-		intent.putExtra("dest", destinationFilePath);
-		intent.putExtra("receiver", new DownloadReceiver(new Handler()));
-		startService(intent); 
+	    if(Utils.isExternalStorageWritable()) {
+			String dir = getExternalFilesDir( "plugin").getAbsolutePath();
+			File folder = Environment.getExternalStoragePublicDirectory(dir);
+			if(folder.exists() && folder.isDirectory()) 
+			{
+				  
+			}else {
+				folder.mkdirs();
+			}
+			String filename = pluginUrl.substring(pluginUrl.lastIndexOf("/"),pluginUrl.length());
+			Log.i(TAG,"filename = " + filename);
+			String destinationFilePath =  dir + "/" + filename;	
+			File file = new File(destinationFilePath);
+			if(file.exists() && file.isFile()){
+				loadPluginToHost();
+				return;
+			}
+			mProgressDialog.show();
+			Intent intent = new Intent(this, DownloadService.class);
+			intent.putExtra("url", pluginUrl);
+			intent.putExtra("dest", destinationFilePath);
+			intent.putExtra("receiver", new DownloadReceiver(new Handler()));
+			startService(intent); 	    	
+	    }else {
+	    	Toast.makeText(this, "无法获得读写权限（是不是手机连着电脑，拔下来试试）", 300).show();
+	    	return;
+	    }
 	}
 	
 	public void loadPluginToHost() {
