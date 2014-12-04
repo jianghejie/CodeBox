@@ -30,19 +30,19 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="8"
         android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:name="com.jcodecraeer.jcode.AppContext"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme"        
+        android:label="@string/app_name"  
          >
         <activity
             android:name="com.jcodecraeer.jcode.MainActivity"
             android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,31 +51,33 @@
         </activity>	 
         <activity
             android:name="com.jcodecraeer.jcode.CodeActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
              >
         </activity>  
         <activity
             android:name="com.jcodecraeer.jcode.AboutActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
              >
         </activity>          
         
         <activity
             android:name="com.ryg.dynamicload.DLProxyActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" 
             >
             <intent-filter>
                 <action android:name="com.ryg.dynamicload.proxy.activity.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.ryg.dynamicload.DLProxyFragmentActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="com.ryg.dynamicload.proxy.fragmentactivity.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>        

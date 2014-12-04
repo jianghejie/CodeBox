@@ -209,7 +209,7 @@ public class NavigationDrawerFragment extends Fragment{
 		// them to the drawer,
 		// per the navigation drawer design guidelines.
 		if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
-			mDrawerLayout.openDrawer(mFragmentContainerView);
+			//mDrawerLayout.openDrawer(mFragmentContainerView);
 		}
 
  

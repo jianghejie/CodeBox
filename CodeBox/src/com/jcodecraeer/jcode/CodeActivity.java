@@ -58,6 +58,7 @@ import android.widget.TextView;
 import android.widget.Toast;
  
 public class CodeActivity extends BaseActivity {
+	private static final String TAG = "CodeActivity";
     private Button runButton;
 	public ViewController mViewController;
     private	ProgressDialog mProgressDialog;
@@ -135,6 +136,7 @@ public class CodeActivity extends BaseActivity {
 			folder.mkdirs();
 		}
 		String filename = pluginUrl.substring(pluginUrl.lastIndexOf("/"),pluginUrl.length());
+		Log.i(TAG,"filename = " + filename);
 		String destinationFilePath =  dir + "/" + filename;	
 		File file = new File(destinationFilePath);
 		if(file.exists() && file.isFile()){
@@ -160,8 +162,8 @@ public class CodeActivity extends BaseActivity {
         if (item.packageInfo.activities != null && item.packageInfo.activities.length > 0) {
             item.launcherActivityName = item.packageInfo.activities[0].name;
         }
-        DLPluginManager.getInstance(this).loadApk(item.pluginPath);
         DLPluginManager pluginManager = DLPluginManager.getInstance(this);
+        pluginManager.loadApk(item.pluginPath);
         pluginManager.startPluginActivity(this, new DLIntent(item.packageInfo.packageName, item.launcherActivityName));	        
 	}
 	
@@ -169,7 +171,6 @@ public class CodeActivity extends BaseActivity {
         public PackageInfo packageInfo;
         public String pluginPath;
         public String launcherActivityName;
-
         public PluginItem() {
         }
     }	
