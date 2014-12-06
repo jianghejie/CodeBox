@@ -70,6 +70,7 @@ public class CodeActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);	
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		mViewController = ViewController.getInstance();	
 		setContentView(R.layout.activity_code);	
 		mCode =(Code)getIntent().getSerializableExtra("code");
@@ -156,6 +157,14 @@ public class CodeActivity extends BaseActivity {
 	    }
 	}
 	
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    
 	public void loadPluginToHost() {
 		String pluginUrl = mCode.getPluginUrl();
 		String dir = getExternalFilesDir( "plugin").getAbsolutePath();

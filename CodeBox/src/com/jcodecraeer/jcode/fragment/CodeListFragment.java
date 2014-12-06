@@ -25,6 +25,7 @@ import com.jcodecraeer.jcode.ViewController.EventHandler;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -41,7 +42,7 @@ import android.os.Message;
 import android.provider.ContactsContract;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.ImageColumns;
-import android.support.v4.app.Fragment;
+ 
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.SparseBooleanArray;

@@ -4,7 +4,7 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Light.NoTitleBar">
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -17,30 +17,19 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->   
-         <item name="android:actionModeCloseDrawable">@drawable/ic_launcher_clear_normal_holo</item>
-         <item name="android:actionModeBackground">@color/transparent</item>
-         <item name="android:actionModeCloseButtonStyle">@null</item>           
+          <item name="android:actionBarStyle">@style/ActionBar</item>
     </style>
-	<style name="CustomDropDownListView" parent="android:style/Widget.Holo.ListView.DropDown">
-	    <item name="android:background">#bb333333</item> <!-- this works -->
-	</style>
-	
-	<style name="CustomTheme" parent="android:Theme.Dialog"> 
-        <item name="android:windowNoTitle">true</item>
- 		<item name="android:layout_width">wrap_content</item>
- 		<item name="android:layout_height">wrap_content</item>
- 		<item name="android:gravity">center</item>
- 		<item name="android:windowIsTranslucent">true</item>
- 		<item name="android:windowFrame">@null</item>
- 		<item name="android:windowBackground">@android:color/transparent</item>
- 		<item name="android:windowIsFloating">true</item>
- 		<item name="android:windowContentOverlay">@null</item>
- 		<item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
- 		<item name="android:backgroundDimEnabled">true</item>
- 		<item name="android:background">@android:color/transparent</item>
-    </style>
- 
     
  
+
+    <style name="ActionBar" parent="android:Widget.ActionBar">
+        <item name="android:background">@color/actionbar_color</item>
+        <item name="android:icon">@android:color/transparent</item>
+        <item name="android:titleTextStyle">@style/ActionBar.TitleText</item>
+    </style>
+
+    <style name="ActionBar.TitleText" parent="android:TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>    
 </resources>

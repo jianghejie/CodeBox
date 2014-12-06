@@ -10,12 +10,15 @@ import com.jcodecraeer.jcode.update.UpdateChecker;
 import be.webelite.ion.Icon;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -34,7 +37,6 @@ import android.provider.MediaStore.Images.ImageColumns;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.format.Time;
 import android.util.DisplayMetrics;
@@ -50,38 +52,31 @@ import android.widget.AbsListView;
 import android.widget.Toast;
  
 public class MainActivity extends BaseActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
-	static final int TAKE_PIC_REQUEST = 1;  
 	private CodeListFragment mPictrueFragment;
 	private NavigationDrawerFragment mNavigationDrawerFragment;
-	private int albumTyle;
 	public ViewController mViewController;
-	/**
-	 * This will not work so great since the heights of the imageViews 
-	 * are calculated on the iamgeLoader callback ruining the offsets. To fix this try to get 
-	 * the (intrinsic) image width and height and set the views height manually. I will
-	 * look into a fix once I find extra time.
-	 */
+	private DrawerLayout mDrawerLayout;
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);	
 		mViewController = ViewController.getInstance();	
 		setContentView(R.layout.activity_main);	
-		setShowDrawer(true);
-		setTitleEnabled(false);
-		setRightIcon(Icon.ion_ios7_help);
-		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+    	mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
-				(DrawerLayout) findViewById(R.id.drawer_layout));
+				mDrawerLayout);
 		UpdateChecker updateChecker = new UpdateChecker(this);
 		updateChecker.setCheckUrl("http://jcodecraeer.com/update.php");
 		updateChecker.checkForUpdates();
 	}
   	
+	@SuppressLint("NewApi")
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
-		final FragmentManager fragmentManager = getSupportFragmentManager();
+		final FragmentManager fragmentManager = getFragmentManager();
 		final Handler handler = new Handler();
 		switch(position) {
 		case 0:
@@ -98,4 +93,38 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 			break;
 		}
 	}
+	
+ 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){		    
+			case  android.R.id.home:
+	            if (mDrawerLayout.isDrawerOpen(findViewById(R.id.navigation_drawer))) {
+	                mDrawerLayout.closeDrawer(findViewById(R.id.navigation_drawer));
+	            } else {
+	                mDrawerLayout.openDrawer(findViewById(R.id.navigation_drawer));
+	            }
+			    break;	
+			case R.id.about:
+				Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+				startActivity(intent);
+				break;	
+	 		    
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		if (!mNavigationDrawerFragment.isDrawerOpen()) {
+			// Only show items in the action bar relevant to this screen
+			// if the drawer is not showing. Otherwise, let the drawer
+			// decide what to show in the action bar.
+			getMenuInflater().inflate(R.menu.main, menu);
+			//restoreActionBar();
+			return true;
+		}
+		return super.onCreateOptionsMenu(menu);
+	}	
+    
 }

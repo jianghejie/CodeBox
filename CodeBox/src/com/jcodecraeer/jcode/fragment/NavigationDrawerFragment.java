@@ -10,6 +10,8 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.ikimuhendis.ldrawer.ActionBarDrawerToggle;
+import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
 import com.jcodecraeer.jcode.AppContext;
 import com.jcodecraeer.jcode.Category;
 import com.jcodecraeer.jcode.Code;
@@ -20,12 +22,13 @@ import com.jcodecraeer.jcode.R.id;
 import com.jcodecraeer.jcode.R.layout;
 import com.jcodecraeer.jcode.R.string;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -54,6 +57,7 @@ import android.widget.TextView;
  * > design guidelines</a> for a complete explanation of the behaviors
  * implemented here.
  */
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class NavigationDrawerFragment extends Fragment{
 
 	/**
@@ -75,8 +79,8 @@ public class NavigationDrawerFragment extends Fragment{
 	/**
 	 * Helper component that ties the action bar to the navigation drawer.
 	 */
-	private DrawerLayout.SimpleDrawerListener mDrawerToggle;
-	private boolean      isDrawerOpened;
+	private ActionBarDrawerToggle mDrawerToggle;
+ 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerListView;
 	private View mFragmentContainerView;
@@ -161,16 +165,7 @@ public class NavigationDrawerFragment extends Fragment{
 	 */
 	public void setUp(int fragmentId, DrawerLayout drawerLayout) {
 		mFragmentContainerView = getActivity().findViewById(fragmentId);
-		View drawerIcon = getActivity().findViewById(R.id.drawer_icon);
-		drawerIcon.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v){
-			 	if(isDrawerOpened)
-	        		mDrawerLayout.closeDrawer(Gravity.LEFT);
-	        	else
-	        		mDrawerLayout.openDrawer(Gravity.LEFT);				
-			}
-		});
+ 
 		mDrawerLayout = drawerLayout;
 
 		// set a custom shadow that overlays the main content when the drawer
@@ -179,32 +174,31 @@ public class NavigationDrawerFragment extends Fragment{
 //				GravityCompat.START);
 		// set up the drawer's list view with items and click listener
  
-		mDrawerToggle = new DrawerLayout.SimpleDrawerListener() {
-	        @Override
-	        public void onDrawerSlide(View drawerView, float slideOffset) {
-	       
-	        	 
-	        }
+ 
+	    
+	    DrawerArrowDrawable drawerArrow = new DrawerArrowDrawable(getActivity()) {
+            @Override
+            public boolean isLayoutRtl() {
+                return false;
+            }
+        };
+        mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,
+            drawerArrow, R.string.app_name,
+            R.string.app_name) {
 
-	        @Override
-	        public void onDrawerOpened(View drawerView) {
-	            isDrawerOpened = true;
-	        }
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getActivity().invalidateOptionsMenu();
+            }
 
-	        @Override
-	        public void onDrawerClosed(View drawerView) {
-	            isDrawerOpened = false;
-	        }
-
-	        @Override
-	        public void onDrawerStateChanged(int newState) {
-	            if(newState == DrawerLayout.STATE_IDLE) {
-	          
-	            }
-	        }
-	    };
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getActivity().invalidateOptionsMenu(); 
+            }
+        };
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
 			 
-
+        mDrawerToggle.syncState();
 		// If the user hasn't 'learned' about the drawer, open it to introduce
 		// them to the drawer,
 		// per the navigation drawer design guidelines.
@@ -212,9 +206,7 @@ public class NavigationDrawerFragment extends Fragment{
 			//mDrawerLayout.openDrawer(mFragmentContainerView);
 		}
 
- 
-
-		mDrawerLayout.setDrawerListener(mDrawerToggle);
+  
 	}
 
 	private void selectItem(int position) {

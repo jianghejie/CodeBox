@@ -29,4 +29,8 @@
     <color name="unread_bgcolor">#ffffffff</color>
     <color name="read_bgcolor">#ffeeeeee</color>
     <color name="app_background">#f7f7f7</color>  
+     <!--L drawer -->
+    <color name="ldrawer_color">#FFFFFF</color>
+    <color name="actionbar_color">#bf360c</color>
+    <color name="drawer_arrow_second_color">#303f9f</color>
 </resources>
