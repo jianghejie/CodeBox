@@ -4,7 +4,6 @@ CodeBox android
 an open source project demo Demonstration
 
 ![](https://github.com/jianghejie/CodeBox/blob/master/screenshots/654654646.gif)  
-![](https://github.com/jianghejie/CodeBox/blob/master/screenshots/device-2014-12-06-160316.png)  
 ![](https://github.com/jianghejie/CodeBox/blob/master/screenshots/device-2014-12-06-160357.png)  
  
 
@@ -43,4 +42,4 @@ https://github.com/MarsVard/IonIconView
 目前该项目的功能还很单一，后续会增加更多的功能。
 
 ###QQ讨论群 420134815
-###不想编译代码可以直接下载项目根目录里面的apk
+###不想编译代码可以直接下载项目根目录里面的apk，如果apk有新的版本可以直接自动更新，今后就不用下载了
