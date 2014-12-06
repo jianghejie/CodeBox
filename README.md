@@ -3,10 +3,10 @@ CodeBox android
 
 an open source project demo Demonstration
 
-![](https://github.com/jianghejie/CodeBox/blob/master/screenshots/device-2014-12-02-152750.png)  
-![](https://github.com/jianghejie/CodeBox/blob/master/screenshots/device-2014-12-02-152805.png)  
-![](https://github.com/jianghejie/CodeBox/blob/master/screenshots/device-2014-12-02-152814.png)  
-![](https://github.com/jianghejie/CodeBox/blob/master/screenshots/device-2014-12-02-152827.png)  
+![](https://github.com/jianghejie/CodeBox/blob/master/screenshots/654654646.gif)  
+![](https://github.com/jianghejie/CodeBox/blob/master/screenshots/device-2014-12-06-160316.png)  
+![](https://github.com/jianghejie/CodeBox/blob/master/screenshots/device-2014-12-06-160357.png)  
+ 
 
 关于
 ------- 
