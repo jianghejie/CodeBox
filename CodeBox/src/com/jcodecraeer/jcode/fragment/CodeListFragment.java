@@ -11,17 +11,18 @@ import org.json.JSONObject;
 
 import com.jcodecraeer.PullToRefreshListView;
 import com.jcodecraeer.jcode.AppContext;
+import com.jcodecraeer.jcode.Category;
 import com.jcodecraeer.jcode.Code;
 import com.jcodecraeer.jcode.CodeActivity;
 import com.jcodecraeer.jcode.CodeListAdapter;
 import com.jcodecraeer.jcode.HttpUtil;
 import com.jcodecraeer.jcode.MultiItemRowListAdapter;
 import com.jcodecraeer.jcode.R;
-import com.jcodecraeer.jcode.ViewController;
+import com.jcodecraeer.jcode.EventBus;
 import com.jcodecraeer.jcode.R.dimen;
 import com.jcodecraeer.jcode.R.id;
 import com.jcodecraeer.jcode.R.layout;
-import com.jcodecraeer.jcode.ViewController.EventHandler;
+import com.jcodecraeer.jcode.EventBus.EventHandler;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -62,11 +63,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.ActionMode;
 
-public  class CodeListFragment extends Fragment implements OnItemClickListener,ViewController.EventHandler{
+public  class CodeListFragment extends Fragment implements OnItemClickListener,EventBus.EventHandler{
 	private static final String TAG = "CodeListFragment";
 	private CodeListAdapter adapter;
 	private ArrayList<Code> mCodeList;
-
+	private Category mCategory;
 	private PullToRefreshListView mGridView;
 	private int numColumns = 2;
 	public static CodeListFragment newInstance(int bucketId) {
@@ -79,6 +80,9 @@ public  class CodeListFragment extends Fragment implements OnItemClickListener,V
 
 	public CodeListFragment() {
 		mCodeList = new ArrayList<Code>();
+		mCategory = new Category();
+		mCategory.setName("所有"); 
+		mCategory.setValue("");
 	}
 	
 	@Override
@@ -174,8 +178,14 @@ public  class CodeListFragment extends Fragment implements OnItemClickListener,V
 			url = HttpUtil._MakeURL(url, new HashMap<String, Object>(){{
 			    put("PageNo", page);
 			    put("ismobile", 1);
-		    }});	
-			String key = "codelist_" +  page ;
+		    }});
+			 
+			if(!(mCategory.getValue()).equals("")){
+				url = HttpUtil._MakeURL(url, new HashMap<String, Object>(){{
+				    put("codecategory", mCategory.getValue());
+			    }});				
+			}
+			String key = "codelist_" +  mCategory.getValue()  + "_" + + page ;
 	    	String result = "";
 	    	//cache
 			if (HttpUtil.isNetworkConnected() && HttpUtil.isCacheDataFailure(key)) {
@@ -188,7 +198,6 @@ public  class CodeListFragment extends Fragment implements OnItemClickListener,V
 					result = "erro";
 			}	
 			try {
-				
 				JSONArray array = new JSONArray(result);
 				JSONObject codelistobject = array.getJSONObject(0);  
 				String baseUrl = AppContext.HTTP + AppContext.HOST_NAME;
@@ -229,10 +238,12 @@ public  class CodeListFragment extends Fragment implements OnItemClickListener,V
 	}
 	 
 	@Override
-	public void handleEvent(int eventType) {
-		if(eventType == 2){
- 
-		}
+	public void handleEvent(int eventType, Object obj) {
+	    if(eventType == EventBus.EventType.CATEGORY){
+	    	 mCategory = (Category)obj;	
+	    	 Log.i(TAG, "mCategory" + mCategory.getName());
+             loadCodeList(AppContext.CODE_LIST_URL, 1, true);
+	    }
 	}	
 	
     @Override

@@ -17,6 +17,7 @@ import com.jcodecraeer.jcode.Category;
 import com.jcodecraeer.jcode.Code;
 import com.jcodecraeer.jcode.HttpUtil;
 import com.jcodecraeer.jcode.R;
+import com.jcodecraeer.jcode.EventBus;
 import com.jcodecraeer.jcode.R.drawable;
 import com.jcodecraeer.jcode.R.id;
 import com.jcodecraeer.jcode.R.layout;
@@ -58,7 +59,7 @@ import android.widget.TextView;
  * implemented here.
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class NavigationDrawerFragment extends Fragment{
+public class NavigationDrawerFragment extends Fragment implements EventBus.EventHandler{
 
 	/**
 	 * Remember the position of the selected item.
@@ -114,10 +115,9 @@ public class NavigationDrawerFragment extends Fragment{
 					.getInt(STATE_SELECTED_POSITION);
 			mFromSavedInstanceState = true;
 		}
-
+		loadCateList(AppContext.CODE_LIST_URL);
 		// Select either the default item (0) or the last selected item.
 		selectItem(mCurrentSelectedPosition);
-		loadCodeList(AppContext.CODE_LIST_URL);
 	}
 
 	@Override
@@ -197,8 +197,7 @@ public class NavigationDrawerFragment extends Fragment{
                 getActivity().invalidateOptionsMenu(); 
             }
         };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-			 
+        mDrawerLayout.setDrawerListener(mDrawerToggle);	 
         mDrawerToggle.syncState();
 		// If the user hasn't 'learned' about the drawer, open it to introduce
 		// them to the drawer,
@@ -206,8 +205,6 @@ public class NavigationDrawerFragment extends Fragment{
 		if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
 			//mDrawerLayout.openDrawer(mFragmentContainerView);
 		}
-
-  
 	}
 
 	private void selectItem(int position) {
@@ -220,6 +217,10 @@ public class NavigationDrawerFragment extends Fragment{
 		}
 		if (mCallbacks != null) {
 			mCallbacks.onNavigationDrawerItemSelected(position);
+		}
+		if(mCateList.size() != 0){
+			Category  cate = mCateList.get(position);
+			EventBus.getInstance().sendEvent(EventBus.EventType.CATEGORY, cate);			
 		}
 	}
 
@@ -264,9 +265,7 @@ public class NavigationDrawerFragment extends Fragment{
 
 		return super.onOptionsItemSelected(item);
 	}
-
- 
-
+	
 	/**
 	 * Callbacks interface that all activities using this fragment must
 	 * implement.
@@ -278,7 +277,7 @@ public class NavigationDrawerFragment extends Fragment{
 		void onNavigationDrawerItemSelected(int position);
 	}
 
-	private void loadCodeList(final String url) {
+	private void loadCateList(final String url) {
 	    final  Handler handler = new Handler(){
 			public void handleMessage(Message msg) {		
 				if (msg.what == 1) {
@@ -327,7 +326,6 @@ public class NavigationDrawerFragment extends Fragment{
 				if (result == null)
 					result = "erro";
 			}
-	     
 			try {
 				JSONArray array = new JSONArray(result);
 				JSONObject catelistobject = array.getJSONObject(1); 	
@@ -379,5 +377,16 @@ public class NavigationDrawerFragment extends Fragment{
             viewHolder.title.setText(cate.getName());
     		return convertView;
     	}
-    }		
+    }	
+    
+	@Override
+	public void handleEvent(int eventType, Object obj) {
+	    if(eventType == EventBus.EventType.TOGGLE){
+            if (mDrawerLayout.isDrawerOpen(mFragmentContainerView)) {
+            	mDrawerLayout.closeDrawer(mFragmentContainerView);
+            } else {
+            	mDrawerLayout.openDrawer(mFragmentContainerView);
+            }				
+	    }
+	}
 }

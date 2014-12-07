@@ -52,15 +52,15 @@ import android.widget.AbsListView;
 import android.widget.Toast;
  
 public class MainActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
-	private CodeListFragment mPictrueFragment;
+	private CodeListFragment mCodeLIstFragment;
 	private NavigationDrawerFragment mNavigationDrawerFragment;
-	public ViewController mViewController;
+	public EventBus mEventBus;
 	private DrawerLayout mDrawerLayout;
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);	
-		mViewController = ViewController.getInstance();	
+		mEventBus = EventBus.getInstance();	
 		setContentView(R.layout.activity_main);	
 		getActionBar().setDisplayHomeAsUpEnabled(true);
     	mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -68,9 +68,13 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 				.findFragmentById(R.id.navigation_drawer);
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				mDrawerLayout);
+		mEventBus.registerEventHandler(0, mNavigationDrawerFragment);
 		UpdateChecker updateChecker = new UpdateChecker(this);
 		updateChecker.setCheckUrl("http://jcodecraeer.com/update.php");
 		updateChecker.checkForUpdates();
+		mCodeLIstFragment = CodeListFragment.newInstance(Integer.MIN_VALUE);		
+		mEventBus.registerEventHandler(1, mCodeLIstFragment);	
+		getFragmentManager().beginTransaction().replace(R.id.container,mCodeLIstFragment).commit();		
 	}
   	
 	@SuppressLint("NewApi")
@@ -80,36 +84,29 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 		final Handler handler = new Handler();
 		switch(position) {
 		case 0:
-			if(mPictrueFragment == null) {
-				mPictrueFragment = CodeListFragment.newInstance(Integer.MIN_VALUE);		
-				mViewController.registerEventHandler(0, mPictrueFragment);
+			if(mCodeLIstFragment == null) {
+
 			} 
 			handler.postDelayed(new Runnable() {
 			    @Override
 				public void run() {
-				    fragmentManager.beginTransaction().replace(R.id.container,mPictrueFragment).commit();		
+				   
 				}
 			}, 500);
 			break;
 		}
 	}
 	
- 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()){		    
 			case  android.R.id.home:
-	            if (mDrawerLayout.isDrawerOpen(findViewById(R.id.navigation_drawer))) {
-	                mDrawerLayout.closeDrawer(findViewById(R.id.navigation_drawer));
-	            } else {
-	                mDrawerLayout.openDrawer(findViewById(R.id.navigation_drawer));
-	            }
+				mEventBus.sendEvent(EventBus.EventType.TOGGLE, null);
 			    break;	
 			case R.id.about:
 				Intent intent = new Intent(MainActivity.this, AboutActivity.class);
 				startActivity(intent);
 				break;	
-	 		    
 		}
 		return super.onOptionsItemSelected(item);
 	}

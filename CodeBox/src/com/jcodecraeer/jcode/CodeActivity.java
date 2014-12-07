@@ -61,7 +61,7 @@ import android.widget.Toast;
 public class CodeActivity extends BaseActivity {
 	private static final String TAG = "CodeActivity";
     private Button runButton;
-	public ViewController mViewController;
+	public EventBus mViewController;
     private	ProgressDialog mProgressDialog;
     private Code mCode;
     private TextView titleText;
@@ -72,7 +72,7 @@ public class CodeActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);	
-		mViewController = ViewController.getInstance();	
+		mViewController = EventBus.getInstance();	
 		setContentView(R.layout.activity_code);	
 		mCode =(Code)getIntent().getSerializableExtra("code");
 		setTitle(mCode.getTitle());

@@ -9,12 +9,12 @@ import android.widget.Button;
  
 public class AboutActivity extends BaseActivity {
     private Button runButton;
-	public ViewController mViewController;
+	public EventBus mViewController;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);	
-		mViewController = ViewController.getInstance();	
+		mViewController = EventBus.getInstance();	
 		setContentView(R.layout.activity_about);	
 		setTitle("关于");
 		runButton = (Button)findViewById(R.id.run);
