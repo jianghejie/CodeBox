@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List; 
 
+import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
 import com.jcodecraeer.jcode.update.DownloadService;
 import com.ryg.dynamicload.internal.DLIntent;
 import com.ryg.dynamicload.internal.DLPluginManager;
@@ -67,10 +68,10 @@ public class CodeActivity extends BaseActivity {
     private TextView sourceUrlText;
     private TextView codeDescriptionText;
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);	
-		getActionBar().setDisplayHomeAsUpEnabled(true);
 		mViewController = ViewController.getInstance();	
 		setContentView(R.layout.activity_code);	
 		mCode =(Code)getIntent().getSerializableExtra("code");

@@ -60,7 +60,7 @@ public class HttpUtil {
 	/** wifi网络 */
 	public static final int NETWORKTYPE_WIFI = 4;
 	
-	private static final int CACHE_TIME = 10 * 60000;// 缓存失效时间
+	private static final int CACHE_TIME = 2 * 60000;
 	
 	public static boolean isNetworkConnected() {
 		ConnectivityManager cm = (ConnectivityManager) AppContext.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -200,7 +200,7 @@ public class HttpUtil {
 		return httpPost;
 	}
 	
-	private static String _MakeURL(String p_url, Map<String, Object> params) {
+	public static String _MakeURL(String p_url, Map<String, Object> params) {
 		StringBuilder url = new StringBuilder(p_url);
 		if(url.indexOf("?")<0)
 			url.append('?');

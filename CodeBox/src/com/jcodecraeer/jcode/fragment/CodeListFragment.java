@@ -63,6 +63,7 @@ import android.widget.Toast;
 import android.view.ActionMode;
 
 public  class CodeListFragment extends Fragment implements OnItemClickListener,ViewController.EventHandler{
+	private static final String TAG = "CodeListFragment";
 	private CodeListAdapter adapter;
 	private ArrayList<Code> mCodeList;
 
@@ -170,16 +171,26 @@ public  class CodeListFragment extends Fragment implements OnItemClickListener,V
 	private ArrayList<Code> parseCodeList(String url, final int page) {
 		final ArrayList<Code> codeList = new ArrayList<Code>();
 		try {
-			url = _MakeURL(url, new HashMap<String, Object>(){{
+			url = HttpUtil._MakeURL(url, new HashMap<String, Object>(){{
 			    put("PageNo", page);
 			    put("ismobile", 1);
 		    }});	
-	    	String result = HttpUtil.http_get(AppContext.getInstance(),url);
+			String key = "codelist_" +  page ;
+	    	String result = "";
+	    	//cache
+			if (HttpUtil.isNetworkConnected() && HttpUtil.isCacheDataFailure(key)) {
+					result = HttpUtil.http_get(AppContext.getInstance(), url );
+					HttpUtil.saveObject(result, key);
+					result = (String) HttpUtil.readObject(key);	
+			} else {
+				result = (String) HttpUtil.readObject(key);
+				if (result == null)
+					result = "erro";
+			}	
 			try {
 				
 				JSONArray array = new JSONArray(result);
-				JSONObject codelistobject = array.getJSONObject(0); 
-				JSONObject catelistobject = array.getJSONObject(1); 
+				JSONObject codelistobject = array.getJSONObject(0);  
 				String baseUrl = AppContext.HTTP + AppContext.HOST_NAME;
 				//获取代码列表
 				String codeListStr  = codelistobject.getString("codelist");
@@ -190,6 +201,7 @@ public  class CodeListFragment extends Fragment implements OnItemClickListener,V
 				    code.setID(i);
 				    code.setTitle(obj.getString("title"));
 				    code.setLitpic(baseUrl+ obj.getString("litpic"));
+				    Log.i(TAG,"litpic = " + obj.getString("litpic"));
 				    code.setUieffect(baseUrl+ obj.getString("uieffect"));
 				    code.setPluginUrl(baseUrl + obj.getString("pluginurl").trim());
 				    code.setDescription(obj.getString("codedescribe"));
@@ -223,21 +235,6 @@ public  class CodeListFragment extends Fragment implements OnItemClickListener,V
 		}
 	}	
 	
-	private static String _MakeURL(String p_url, Map<String, Object> params) {
-		StringBuilder url = new StringBuilder(p_url);
-		if (url.indexOf("?")<0)
-			url.append('?');
-		for (String name : params.keySet()) {
-			url.append('&');
-			url.append(name);
-			url.append('=');
-			url.append(String.valueOf(params.get(name)));
-			//不做URLEncoder处理
-			//url.append(URLEncoder.encode(String.valueOf(params.get(name)), UTF_8));
-		}
-		return url.toString().replace("?&", "?");
-	}
-
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
         Intent intent = new Intent(getActivity(), CodeActivity.class);

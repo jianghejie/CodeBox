@@ -97,6 +97,7 @@ public class NavigationDrawerFragment extends Fragment{
 	static class ViewHolder {
 		public TextView title;
 	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -311,10 +312,22 @@ public class NavigationDrawerFragment extends Fragment{
 	private ArrayList<Code> parseCodeList(String url) {
 		final ArrayList<Code> codeList = new ArrayList<Code>();
 		try {
-			url = _MakeURL(url, new HashMap<String, Object>(){{
+			url = HttpUtil._MakeURL(url, new HashMap<String, Object>(){{
 			    put("ismobile", 1);
 		    }});	
-	    	String result = HttpUtil.http_get(AppContext.getInstance(),url);
+			String key ="category_request";
+			String result = "";
+	    	//cache
+			if (HttpUtil.isNetworkConnected() && HttpUtil.isCacheDataFailure(key)) {
+					result = HttpUtil.http_get(AppContext.getInstance(), url );
+					HttpUtil.saveObject(result, key);
+					result = (String) HttpUtil.readObject(key);	
+			} else {
+				result = (String) HttpUtil.readObject(key);
+				if (result == null)
+					result = "erro";
+			}
+	     
 			try {
 				JSONArray array = new JSONArray(result);
 				JSONObject catelistobject = array.getJSONObject(1); 	
@@ -366,21 +379,5 @@ public class NavigationDrawerFragment extends Fragment{
             viewHolder.title.setText(cate.getName());
     		return convertView;
     	}
-    }	
-	
-	private static String _MakeURL(String p_url, Map<String, Object> params) {
-		StringBuilder url = new StringBuilder(p_url);
-		if (url.indexOf("?")<0)
-			url.append('?');
-		for (String name : params.keySet()) {
-			url.append('&');
-			url.append(name);
-			url.append('=');
-			url.append(String.valueOf(params.get(name)));
-			//不做URLEncoder处理
-			//url.append(URLEncoder.encode(String.valueOf(params.get(name)), UTF_8));
-		}
-		return url.toString().replace("?&", "?");
-	}	
- 		
+    }		
 }

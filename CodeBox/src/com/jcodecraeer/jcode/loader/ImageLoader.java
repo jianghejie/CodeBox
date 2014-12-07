@@ -162,6 +162,7 @@ public class ImageLoader {
 	        if(bitmap != null)
 	            return bitmap;
 	        //from web
+	        
 	        try {
 	            URL imageUrl = new URL(url);
 	            HttpURLConnection conn = (HttpURLConnection)imageUrl.openConnection();
@@ -343,7 +344,7 @@ public class ImageLoader {
 
     public void clearCache() {
         memoryCache.clear();
-        fileCache.clear();
+       //fileCache.clear();
     }
     
 	/**

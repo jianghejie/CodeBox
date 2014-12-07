@@ -51,7 +51,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.AbsListView;
 import android.widget.Toast;
  
-public class MainActivity extends BaseActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
+public class MainActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
 	private CodeListFragment mPictrueFragment;
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 	public ViewController mViewController;
