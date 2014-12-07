@@ -132,8 +132,7 @@ public class CodeActivity extends BaseActivity {
 	    if(Utils.isExternalStorageWritable()) {
 			String dir = getExternalFilesDir( "plugin").getAbsolutePath();
 			File folder = Environment.getExternalStoragePublicDirectory(dir);
-			if(folder.exists() && folder.isDirectory()) 
-			{
+			if(folder.exists() && folder.isDirectory()) {
 				  
 			}else {
 				folder.mkdirs();
@@ -144,6 +143,10 @@ public class CodeActivity extends BaseActivity {
 			File file = new File(destinationFilePath);
 			if(file.exists() && file.isFile()){
 				loadPluginToHost();
+				return;
+			}
+			if(!HttpUtil.isNetworkConnected()){
+				Toast.makeText(this, "无网络链接，无法下载插件", 100).show();
 				return;
 			}
 			mProgressDialog.show();
