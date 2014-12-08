@@ -1,13 +1,18 @@
 package com.jcodecraeer.jcode;
+import java.lang.reflect.Method;
+
 import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
 
 import be.webelite.ion.Icon;
 import be.webelite.ion.IconView;
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -19,7 +24,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class BaseActivity extends Activity {
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,7 +35,14 @@ public class BaseActivity extends Activity {
             }
         };
         drawerArrow.setProgress(1.f);
-		getActionBar().setHomeAsUpIndicator(drawerArrow); 
+        try {
+            Method setHomeAsUpIndicator = ActionBar.class.getDeclaredMethod("setHomeAsUpIndicator",
+                Drawable.class);
+            setHomeAsUpIndicator.invoke(getActionBar(), drawerArrow);
+            return;
+        } catch (Exception e) {
+            Log.e("BaseActivity", "setActionBarUpIndicator error", e);
+        }
 	}
 	
     @Override
