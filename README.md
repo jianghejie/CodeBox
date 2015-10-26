@@ -1,6 +1,6 @@
 CodeBox android
 =======
-
+本客户端的服务端没有再维护，请不要再fork star了，sorry
 an open source project demo Demonstration
 
 ![](https://github.com/jianghejie/CodeBox/blob/master/screenshots/654654646.gif)  
